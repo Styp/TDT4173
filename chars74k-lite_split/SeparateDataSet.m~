@@ -1,0 +1,27 @@
+clear;
+clc;
+close all;
+
+
+
+for ASCIIcode = 97 : 122
+    folderName = char(ASCIIcode);
+    folderPath = ['/home/shomec/a/alexanc/Documents/TTK4157/chars74k-lite/' folderName];
+
+    noImages = length(dir(folderName)) - 2;
+    
+    noTrainingImages = round(noImages / 3);
+    noTestingImages = noImages - noTrainingImages;
+    
+    mkdir (folderPath, 'TrainingSet');
+    mkdir (folderPath, 'TestingSet');
+    
+    for index = 0 : noTrainingImages - 1
+        imageName = ['a/' folderName '_' int2str(index) '.jpg'];
+        copyfile (imageName, [folderPath 'TrainingSet']);
+    end;
+
+for index = noTrainingImages : noImages - 1
+    imageName = [folderName '_' int2str(index) '.jpg'];
+    %copyfile imageName 'TestingSet';
+end;
