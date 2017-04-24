@@ -4,7 +4,7 @@ close all;
 
 
 
-for ASCIIcode = 98 : 122
+for ASCIIcode = 97 : 122
     
     folderName = char(ASCIIcode)
     folderPath = ['/home/shomec/a/alexanc/Documents/TTK4157/chars74k-lite/' folderName];
