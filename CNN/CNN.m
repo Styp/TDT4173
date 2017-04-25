@@ -128,5 +128,30 @@ accuracyTest = sum(YTest == testingLabels)/numel(testingLabels)
 
 %%
 
-% TO DO - Show some images in a subplot type figure having in the title the
-% desired label and the obtained label
+N = 36;
+
+index_images = round(rand(1, N) * 2372);
+
+for line = 1 : sqrt(N)
+    for column = 1 : sqrt(N)
+        index = (line - 1) * sqrt(N) + column;
+        
+        img = testingImages(:,:,:,index_images(index));
+        predict(alphabetNet, img)
+        
+        expectedLabel = testingLabels(index_images(index));
+        obtainedLabel = YTest(index_images(index));
+        
+        subplot(sqrt(N), sqrt(N), index);
+        imshow(img);
+        
+        if expectedLabel == obtainedLabel
+            title(sprintf('%s (%s)', obtainedLabel, expectedLabel), 'Color', 'g');
+        else
+            title(sprintf('%s (%s)', obtainedLabel, expectedLabel), 'Color', 'r');
+        end
+         
+    end
+end
+
+suptitle({'Classification results: Obtained label (Expected Label)', 'Green - correct, Red - wrong'});
