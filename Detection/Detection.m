@@ -8,18 +8,21 @@ tic
 STEP = 3;
 WINDOW = 25;
 CNN_WINDOW = 20;
-THRESHOLD = 0.6;
+THRESHOLD = 0.8;
 WHITE_TH = 235;
 
 %%
-load ../CNN/alphabetCNNnet.mat;
+load ../CNN/alphabetCNNnetv2.mat;
 
 image1 = imread('../detection-images/detection-1.jpg');
 image2 = imread('../detection-images/detection-2.jpg');
-image3 = imread('../detection-images/detection-3.jpg');
 
 %%
-image = image1;
+image = image2;
+
+img_open = bwareaopen(imbinarize(image), 8);
+img_open_open = imcomplement(bwareaopen(imcomplement(img_open), 8));
+image = img_open_open * 255;
 
 sizeImage = size(image);
 
