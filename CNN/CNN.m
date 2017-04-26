@@ -2,7 +2,13 @@ clear;
 clc;
 close all;
 
-load ConcatenatedImagesAndLabels.mat;
+TH_PROBAB = 0.6;
+
+%load ConcatenatedImagesAndLabels.mat;
+%load ConcatenatedImagesAndLabelsv2.mat;
+%load ConcatenatedImagesAndLabelsContrastFilter.mat;
+%load ConcatenatedImagesAndLabelsFilterContrast.mat;
+load ConcatenatedImagesAndLabelsOpen.mat;
 
 size(trainingImages)
 
@@ -137,13 +143,14 @@ for line = 1 : sqrt(N)
         index = (line - 1) * sqrt(N) + column;
         
         img = testingImages(:,:,:,index_images(index));
-        predict(alphabetNet, img)
+        probabilities = predict(alphabetNet, img);
+        [maxProbab, indexMaxProbab] = max(probabilities);
         
         expectedLabel = testingLabels(index_images(index));
         obtainedLabel = YTest(index_images(index));
         
         subplot(sqrt(N), sqrt(N), index);
-        imshow(img);
+        imshow(img);       
         
         if expectedLabel == obtainedLabel
             title(sprintf('%s (%s)', obtainedLabel, expectedLabel), 'Color', 'g');
